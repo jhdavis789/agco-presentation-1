@@ -108,7 +108,7 @@ body {
 
 /* SLIDES */
 .slide {
-  display: none; padding: 72px 48px 48px;
+  display: none; padding: 72px 48px 48px; position: relative;
   min-height: 100vh; max-width: 1400px; margin: 0 auto;
 }
 .slide.active { display: block; }
@@ -890,6 +890,12 @@ td.teal { color: var(--teal-500); }
     </div>
   </div>
   <div class="callout">Correlations: Oil-Corn r=0.747, Corn-Income r=0.697, Income-Equipment r=0.854. RED III in EU + RFS in US create a structural biofuel demand floor that supports corn acreage and equipment demand through the cycle. <strong>The median U.S. farm household earns negative income from farming (-$1,498 in 2025) -- more than half of all farm households lose money on operations. 55% of crop farms had a negative operating profit margin in 2024, up from 42% in 2023.</strong> (USDA ERS; FINBIN/Farmdoc Daily)</div>
+  <div id="deere-toggle" style="position:absolute;bottom:18px;right:24px;z-index:10">
+    <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:11px;color:#5A6778;user-select:none">
+      <input type="checkbox" id="deere-cb" checked onchange="toggleDeere(this.checked)" style="accent-color:#2E8B4E;cursor:pointer">
+      Show Deere Revenue
+    </label>
+  </div>
 </div>
 
 <!-- SLIDE 18: G&P Divestiture + Brazil -->
@@ -1270,6 +1276,15 @@ function initChartsForSlide(n) {
     case 21: initSlide22(); break;
     case 22: initSlide23(); break;
   }
+}
+
+// Toggle Deere revenue on slide 17 chart
+function toggleDeere(show) {
+  if (!window._incomeRevChart) return;
+  const ds = window._incomeRevChart.data.datasets[1];
+  ds.hidden = !show;
+  window._incomeRevChart.options.scales.y1.display = show;
+  window._incomeRevChart.update();
 }
 
 // Initialize first slide
@@ -1737,7 +1752,7 @@ function initSlide17() {
     }
   });
 
-  new Chart(document.getElementById('c17-incomerev'), {
+  window._incomeRevChart = new Chart(document.getElementById('c17-incomerev'), {
     type: 'line',
     data: {
       labels: ['2010','2012','2014','2016','2018','2020','2022','2024'],
