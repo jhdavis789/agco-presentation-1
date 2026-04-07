@@ -306,9 +306,10 @@ td.teal { color: var(--teal-500); }
   <button class="nav-btn" onclick="goSlide(23)">24</button>
   <button class="nav-btn" onclick="goSlide(24)">25</button>
   <button class="nav-btn" onclick="goSlide(25)">26</button>
+  <button class="nav-btn" onclick="goSlide(26)">27</button>
 </div>
 
-<div class="kb-hint">&larr; &rarr; to navigate | slide <span id="slide-counter">1</span>/26</div>
+<div class="kb-hint">&larr; &rarr; to navigate | slide <span id="slide-counter">1</span>/27</div>
 
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- SECTION 1: SETUP (Slides 1-2)                     -->
@@ -1193,6 +1194,49 @@ td.teal { color: var(--teal-500); }
 </div>
 
 
+<!-- SLIDE 27: EU Farm Income Gap -->
+<div class="slide" id="s27">
+  <div class="slide-title">European Farm Income: <span>Half of Average Wages for 20 Years</span></div>
+  <div class="slide-subtitle">EU farmers earn roughly 50% of what an average EU worker earns. Even the 2022 commodity windfall only closed the gap to 63%. By 2024 it was back to 53%. 62% of farm entrepreneurial income comes from CAP subsidies.</div>
+
+  <div class="metrics">
+    <div class="metric"><div class="label">Farm Income/AWU</div><div class="value red">€21,018</div><div class="detail">2024, real 2015 EUR</div></div>
+    <div class="metric"><div class="label">Avg EU Salary</div><div class="value">€39,808</div><div class="detail">2024, nominal</div></div>
+    <div class="metric"><div class="label">Farm / Avg Wage</div><div class="value amber">~53%</div><div class="detail">2024</div></div>
+    <div class="metric"><div class="label">CAP Dependency</div><div class="value red">62%</div><div class="detail">Avg share of income from subsidies</div></div>
+  </div>
+
+  <div class="row">
+    <div class="col" style="flex:1.4">
+      <div class="card">
+        <h3>Farm Income per Worker vs Average EU Salary (€/year, 2005-2024)</h3>
+        <canvas id="c27-gap" style="max-height:360px"></canvas>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <h3>Farm Income as % of Average EU Wage</h3>
+        <canvas id="c27-pct" style="max-height:360px"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Why This Matters for AGCO</h3>
+    <table>
+      <tr><th>Pressure</th><th>Data</th><th>AGCO Implication</th></tr>
+      <tr><td><strong>Income squeeze</strong></td><td>Farm income per worker: €21K vs average economy €40K</td><td class="green">Farmers need productivity tools (precision ag) to close the gap</td></tr>
+      <tr><td><strong>Input cost inflation</strong></td><td>Fertilizer +142% (2020-2022), total inputs +50% since 2015</td><td class="green">Precision ag reduces inputs 15-30% (variable rate, See &amp; Spray)</td></tr>
+      <tr><td><strong>Subsidy dependency</strong></td><td>62% of entrepreneurial income from CAP payments</td><td class="green">CAP increasingly tied to precision ag adoption (eco-schemes)</td></tr>
+      <tr><td><strong>Farm consolidation</strong></td><td>EU lost 4M farms (2005-2020), -25%</td><td class="green">Fewer, larger farms buy premium equipment (Fendt)</td></tr>
+      <tr><td><strong>Labor shortage</strong></td><td>Farm workforce -18% since 2015</td><td class="green">Autonomy (OutRun) addresses labor scarcity directly</td></tr>
+    </table>
+  </div>
+
+  <div class="callout">European farming is structurally unprofitable without subsidies. The average farm worker earns half what an average EU citizen earns, and the gap is widening as input costs rise. The only path to viability is productivity -- and productivity in farming means precision ag, larger scale, and eventually autonomy. AGCO's Fendt + PTx platform sits at the center of all three trends.</div>
+  <div class="source">Source: Eurostat aact_eaa06, nama_10_fte, apri_pi15_ina; European Commission FADN; CAP Reform | JAOD Analysis</div>
+</div>
+
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- JAVASCRIPT: Navigation + Charts                    -->
 <!-- ═══════════════════════════════════════════════════ -->
@@ -1275,6 +1319,7 @@ function initChartsForSlide(n) {
     case 20: initSlide21(); break;
     case 21: initSlide22(); break;
     case 22: initSlide23(); break;
+    case 26: initSlide27(); break;
   }
 }
 
@@ -1890,6 +1935,63 @@ function initSlide23() {
       scales: {
         x: { stacked: true, grid: { display: false } },
         y: { stacked: true, grid: { color: 'rgba(28,43,58,0.06)' }, title: { display: true, text: '$/Share' } }
+      }
+    }
+  });
+}
+
+// -- SLIDE 27: EU Farm Income Gap --
+function initSlide27() {
+  const years = ['2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020','2021','2022','2023','2024'];
+  const farmIncome = [11246,11654,12923,12391,10969,13501,15187,15072,15614,15931,15419,15484,17999,17476,18210,18908,19846,22493,21009,21018];
+  const avgWage = [23719,24338,25154,26177,26384,27322,28082,28591,29091,29385,29889,30390,31110,31794,32778,32515,33915,35648,37840,39808];
+  const pctOfWage = [47.4,47.9,51.4,47.3,41.6,49.4,54.1,52.7,53.7,54.2,51.6,51.0,57.9,55.0,55.6,58.2,58.5,63.1,55.5,52.8];
+
+  new Chart(document.getElementById('c27-gap'), {
+    type: 'line',
+    data: {
+      labels: years,
+      datasets: [
+        { label: 'Avg EU Salary (€/yr)', data: avgWage, borderColor: AMBER, backgroundColor: AMBER+'15', pointRadius: 3, fill: false, borderWidth: 2.5 },
+        { label: 'Farm Income/AWU (€/yr, real 2015)', data: farmIncome, borderColor: RED, backgroundColor: RED+'15', pointRadius: 3, fill: '-1', borderWidth: 2.5 }
+      ]
+    },
+    options: {
+      plugins: {
+        legend: { position: 'bottom' },
+        tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': €' + ctx.raw.toLocaleString() } }
+      },
+      scales: {
+        y: { grid: { color: 'rgba(28,43,58,0.06)' }, title: { display: true, text: '€ per year' }, min: 0, max: 45000 },
+        x: { grid: { color: 'rgba(28,43,58,0.06)' } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('c27-pct'), {
+    type: 'line',
+    data: {
+      labels: years,
+      datasets: [{
+        label: 'Farm Income as % of Avg Wage',
+        data: pctOfWage,
+        borderColor: RED,
+        backgroundColor: RED+'20',
+        pointRadius: 3,
+        fill: true,
+        borderWidth: 2.5
+      }]
+    },
+    options: {
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ctx.raw.toFixed(1) + '% of avg wage' } }
+      },
+      scales: {
+        y: { grid: { color: 'rgba(28,43,58,0.06)' }, title: { display: true, text: '% of Average Wage' }, min: 30, max: 70,
+          ticks: { callback: v => v + '%' }
+        },
+        x: { grid: { color: 'rgba(28,43,58,0.06)' } }
       }
     }
   });
