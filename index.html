@@ -884,12 +884,12 @@ td.teal { color: var(--teal-500); }
     </div>
     <div class="col">
       <div class="card">
-        <h3>Farm Income vs Deere Revenue (2010-2025)</h3>
+        <h3>Farm Income vs Deere & AGCO Revenue (2010-2025)</h3>
         <canvas id="c17-incomerev"></canvas>
       </div>
     </div>
   </div>
-  <div class="callout">Correlations: Oil-Corn r=0.747, Corn-Income r=0.697, Income-Equipment r=0.854. RED III in EU + RFS in US create a structural biofuel demand floor that supports corn acreage and equipment demand through the cycle.</div>
+  <div class="callout">Correlations: Oil-Corn r=0.747, Corn-Income r=0.697, Income-Equipment r=0.854. RED III in EU + RFS in US create a structural biofuel demand floor that supports corn acreage and equipment demand through the cycle. <strong>The median U.S. farm household earns negative income from farming (-$1,498 in 2025) -- more than half of all farm households lose money on operations. 55% of crop farms had a negative operating profit margin in 2024, up from 42% in 2023.</strong> (USDA ERS; FINBIN/Farmdoc Daily)</div>
 </div>
 
 <!-- SLIDE 18: G&P Divestiture + Brazil -->
@@ -1742,14 +1742,16 @@ function initSlide17() {
     data: {
       labels: ['2010','2012','2014','2016','2018','2020','2022','2024'],
       datasets: [
-        { label: 'Net Farm Income ($B)', data: [80, 114, 92, 67, 83, 121, 186, 155], borderColor: AMBER, backgroundColor: AMBER, pointRadius: 4, yAxisID: 'y' },
-        { label: 'Deere Revenue ($B)', data: [26.0, 36.2, 36.1, 26.6, 37.4, 35.5, 52.6, 40.0], borderColor: GREEN, backgroundColor: GREEN, pointRadius: 4, yAxisID: 'y1' }
+        { label: 'Net Farm Income ($B)', data: [80, 114, 92, 67, 83, 121, 186, 155], borderColor: AMBER, backgroundColor: AMBER, pointRadius: 4, tension: 0, yAxisID: 'y' },
+        { label: 'Deere Revenue ($B)', data: [26.0, 36.2, 36.1, 26.6, 37.4, 35.5, 52.6, 40.0], borderColor: GREEN, backgroundColor: GREEN, pointRadius: 4, tension: 0, yAxisID: 'y1' },
+        { label: 'AGCO Revenue ($B)', data: [6.9, 10.0, 9.7, 7.4, 9.4, 9.2, 12.7, 11.7], borderColor: TEAL, backgroundColor: TEAL, pointRadius: 4, tension: 0, borderDash: [5, 3], yAxisID: 'y2' }
       ]
     },
     options: {
       scales: {
         y: { position: 'left', grid: { color: 'rgba(28,43,58,0.06)' }, title: { display: true, text: 'Farm Income ($B)' } },
         y1: { position: 'right', grid: { display: false }, title: { display: true, text: 'Deere Rev ($B)' } },
+        y2: { position: 'right', grid: { display: false }, title: { display: true, text: 'AGCO Rev ($B)' }, min: 0, max: 16 },
         x: { grid: { color: 'rgba(28,43,58,0.06)' } }
       }
     }
