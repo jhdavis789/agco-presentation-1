@@ -1251,7 +1251,7 @@ td.teal { color: var(--teal-500); }
     <div class="col">
       <div class="card">
         <span class="exhibit-num">Exhibit 28</span>
-        <h3>Farm Income as % of Average EU Wage</h3>
+        <h3>Farm NVA/Worker as % of Average EU Wage (2017-2024)</h3>
         <canvas id="c27-pct" style="max-height:360px"></canvas>
       </div>
     </div>
@@ -2007,10 +2007,10 @@ function initSlide27() {
   new Chart(document.getElementById('c27-pct'), {
     type: 'line',
     data: {
-      labels: years,
+      labels: years.slice(12),
       datasets: [{
-        label: 'Farm Income as % of Avg Wage',
-        data: pctOfWage,
+        label: 'Farm NVA/Worker as % of Avg Wage',
+        data: pctOfWage.slice(12),
         borderColor: RED,
         backgroundColor: RED+'20',
         pointRadius: 3,
