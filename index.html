@@ -315,9 +315,10 @@ td.teal { color: var(--teal-500); }
   <button class="nav-btn" onclick="goSlide(24)">25</button>
   <button class="nav-btn" onclick="goSlide(25)">26</button>
   <button class="nav-btn" onclick="goSlide(26)">27</button>
+  <button class="nav-btn" onclick="goSlide(27)">28</button>
 </div>
 
-<div class="kb-hint">&larr; &rarr; to navigate | slide <span id="slide-counter">1</span>/27</div>
+<div class="kb-hint">&larr; &rarr; to navigate | slide <span id="slide-counter">1</span>/28</div>
 
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- SECTION 1: SETUP (Slides 1-2)                     -->
@@ -1273,6 +1274,49 @@ td.teal { color: var(--teal-500); }
   <div class="source">Source: Eurostat aact_eaa06, nama_10_fte, apri_pi15_ina; European Commission FADN; CAP Reform | JAOD Analysis</div>
 </div>
 
+<!-- SLIDE 28: Retrofit Capability vs Peers -->
+<div class="slide" id="s28">
+  <div class="slide-title">Retrofit Capability: <span>AGCO vs Peers</span></div>
+  <div class="slide-subtitle">AGCO is the only OEM that can retrofit the entire global fleet. Deere only services its own 35%. CNH acquired Raven's open platform for $2.1B — then killed the open model.</div>
+
+  <div class="row">
+    <div class="col" style="flex:1.3">
+      <div class="card">
+        <span class="exhibit-num">Exhibit 29</span>
+        <h3>Addressable Fleet for Precision Ag Retrofit (%)</h3>
+        <canvas id="c28-fleet" style="max-height:280px"></canvas>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <span class="exhibit-num">Exhibit 30</span>
+        <h3>Precision Ag Distribution Network</h3>
+        <canvas id="c28-network" style="max-height:280px"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Precision Ag Retrofit Capability — Head-to-Head</h3>
+    <table>
+      <tr><th style="width:22%">Dimension</th><th class="amber" style="width:30%">AGCO (PTx + Precision Planting)</th><th style="width:24%">Deere (Blue River + Ops Center)</th><th style="width:24%">CNH (Raven + PLM)</th></tr>
+      <tr><td><strong>Precision Ag Revenue</strong></td><td class="amber"><strong>$860M</strong> (~30% EBITDA)</td><td>~$2.5B est. (higher but closed)</td><td>~$500M est. (Raven + PLM)</td></tr>
+      <tr><td><strong>Ecosystem Model</strong></td><td class="green"><strong>Open — any brand</strong></td><td class="red">Closed — Deere only</td><td class="red">Was open (Raven) → now closing to CNH-only</td></tr>
+      <tr><td><strong>Addressable Fleet</strong></td><td class="green"><strong>100% of global fleet</strong></td><td>~35% (Deere fleet only)</td><td>~25% (CNH fleet only, post-Raven closure)</td></tr>
+      <tr><td><strong>OEM Partnerships</strong></td><td class="green"><strong>100+ OEMs</strong></td><td>None — competitors excluded</td><td>Winding down Raven's former partners</td></tr>
+      <tr><td><strong>Dealer/Installer Network</strong></td><td class="amber"><strong>2,500+ locations</strong> (70+ elite, 200+ CNH partners)</td><td>~2,100 Deere dealers (NA + intl)</td><td>~1,500 Case IH + New Holland dealers</td></tr>
+      <tr><td><strong>New Products (2025)</strong></td><td class="green"><strong>14 launched</strong> through trough</td><td>See &amp; Spray expansion, ExactApply</td><td>Limited — integration focus</td></tr>
+      <tr><td><strong>Autonomy</strong></td><td>OutRun (grain cart, any brand)</td><td>8R Autonomous Tractor (Deere only)</td><td>OMNiDRIVE (grain cart, CNH-only now)</td></tr>
+      <tr><td><strong>Data Strategy</strong></td><td class="green">Collects from ALL brands incl. Deere</td><td>Largest dataset (20+ yr), Deere-only</td><td>Shrinking dataset (lost non-CNH)</td></tr>
+      <tr><td><strong>Farmer Cost Model</strong></td><td class="green"><strong>No per-acre fees</strong> on core hardware</td><td class="red">$1,000-2,500/yr subscription for GPS</td><td>Mixed (some subscription)</td></tr>
+      <tr><td><strong>IP Protection</strong></td><td class="green">Won vs Deere at Federal Circuit (Jan 2025)</td><td>Aggressive patent enforcement</td><td>Raven IP folded into CNH</td></tr>
+    </table>
+  </div>
+
+  <div class="callout"><strong>The structural advantage:</strong> Deere has more precision ag revenue, but it only serves 35% of the fleet. CNH paid $2.1B for Raven's open platform — then destroyed its cross-OEM relationships by making it CNH-exclusive. AGCO is the only company with the hardware, the know-how, AND the 100+ OEM partnerships to serve the other 65%. A farmer running PTx on a Deere tractor is already in AGCO's ecosystem — when that tractor needs replacing, the switching cost is now away from AGCO's platform, not away from Deere.</div>
+  <div class="source">Source: AGCO FY2025 10-K, Deere FY2025 10-K, CNH FY2025 20-F, AGCO Analyst Day 2024, Federal Circuit ruling (Jan 2025) | JAOD Analysis</div>
+</div>
+
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- JAVASCRIPT: Navigation + Charts                    -->
 <!-- ═══════════════════════════════════════════════════ -->
@@ -1356,6 +1400,7 @@ function initChartsForSlide(n) {
     case 21: initSlide22(); break;
     case 22: initSlide23(); break;
     case 26: initSlide27(); break;
+    case 27: initSlide28(); break;
   }
 }
 
@@ -2028,6 +2073,53 @@ function initSlide27() {
           ticks: { callback: v => v + '%' }
         },
         x: { grid: { color: 'rgba(28,43,58,0.06)' } }
+      }
+    }
+  });
+}
+
+// -- SLIDE 28: Retrofit Capability vs Peers --
+function initSlide28() {
+  new Chart(document.getElementById('c28-fleet'), {
+    type: 'bar',
+    data: {
+      labels: ['AGCO (PTx)', 'Deere', 'CNH (Raven)'],
+      datasets: [{
+        label: 'Addressable Fleet (%)',
+        data: [100, 35, 25],
+        backgroundColor: [AMBER, GRAY, GRAY+'80'],
+        borderRadius: 4
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ctx.raw + '% of global fleet' } }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(28,43,58,0.06)' }, max: 110, title: { display: true, text: '% of Global Fleet Addressable' },
+          ticks: { callback: v => v + '%' }
+        },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('c28-network'), {
+    type: 'bar',
+    data: {
+      labels: ['AGCO (PTx)', 'Deere', 'CNH'],
+      datasets: [
+        { label: 'Dealer Locations', data: [2500, 2100, 1500], backgroundColor: AMBER, borderRadius: 3 },
+        { label: 'OEM Partnerships', data: [100, 0, 0], backgroundColor: TEAL, borderRadius: 3 }
+      ]
+    },
+    options: {
+      plugins: { legend: { position: 'bottom' } },
+      scales: {
+        y: { grid: { color: 'rgba(28,43,58,0.06)' }, title: { display: true, text: 'Count' } },
+        x: { grid: { display: false } }
       }
     }
   });
