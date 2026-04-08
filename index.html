@@ -127,10 +127,18 @@ body {
 .row > .col { flex: 1; min-width: 0; }
 .card {
   background: var(--card-bg); border: 1px solid var(--card-border);
-  border-radius: 10px; padding: 24px; margin-bottom: 16px;
+  border-radius: 10px; padding: 24px; margin-bottom: 16px; position: relative;
   box-shadow: var(--card-shadow); transition: box-shadow 0.3s ease;
 }
+.exhibit-num {
+  position: absolute; top: 8px; right: 10px;
+  background: var(--navy-800); color: #fff;
+  font-size: 9px; font-weight: 600; letter-spacing: 0.5px;
+  padding: 3px 8px; border-radius: 4px;
+  opacity: 0; transition: opacity 0.2s; pointer-events: none;
+}
 .card:hover { box-shadow: var(--card-hover); }
+.card:hover .exhibit-num { opacity: 1; }
 .card h3 {
   color: var(--navy-700); font-size: 11px; font-weight: 600;
   text-transform: uppercase; letter-spacing: 1px;
@@ -334,6 +342,7 @@ td.teal { color: var(--teal-500); }
     </div>
   </div>
   <div class="card" style="max-width:1000px;margin:20px auto 0">
+    <span class="exhibit-num">Exhibit 1</span>
     <h3>FCF Per Share -- Record at Trough, Compounding on Fewer Shares</h3>
     <canvas id="c1-fcf" style="max-height:220px"></canvas>
   </div>
@@ -347,12 +356,14 @@ td.teal { color: var(--teal-500); }
   <div class="row">
     <div class="col">
       <div class="card">
+        <span class="exhibit-num">Exhibit 2</span>
         <h3>NA Large Ag Equipment Market Share (%)</h3>
         <canvas id="c2-share"></canvas>
       </div>
     </div>
     <div class="col">
       <div class="card">
+        <span class="exhibit-num">Exhibit 3</span>
         <h3>Ag Revenue Comparison ($B, FY2025)</h3>
         <canvas id="c2-rev"></canvas>
       </div>
@@ -361,12 +372,14 @@ td.teal { color: var(--teal-500); }
   <div class="row">
     <div class="col" style="flex:2">
       <div class="card">
+        <span class="exhibit-num">Exhibit 4</span>
         <h3>Lifetime Revenue Waterfall -- Single Large Tractor ($K)</h3>
         <canvas id="c2-waterfall" style="max-height:300px"></canvas>
       </div>
     </div>
     <div class="col">
       <div class="card">
+        <span class="exhibit-num">Exhibit 5</span>
         <h3>Gross Margin by Revenue Stream</h3>
         <canvas id="c2-margins" style="max-height:300px"></canvas>
       </div>
@@ -393,12 +406,14 @@ td.teal { color: var(--teal-500); }
   <div class="row">
     <div class="col" style="flex:2">
       <div class="card">
+        <span class="exhibit-num">Exhibit 6</span>
         <h3>PTx Revenue Trajectory ($M)</h3>
         <canvas id="c3-ptx" style="max-height:320px"></canvas>
       </div>
     </div>
     <div class="col">
       <div class="card">
+        <span class="exhibit-num">Exhibit 7</span>
         <h3>PTx Margins vs Core Ag Equipment</h3>
         <canvas id="c3-margins" style="max-height:180px"></canvas>
       </div>
@@ -431,6 +446,7 @@ td.teal { color: var(--teal-500); }
   <div class="row">
     <div class="col">
       <div class="card">
+        <span class="exhibit-num">Exhibit 8</span>
         <h3>Global Fleet Composition -- Who Needs Retrofit?</h3>
         <canvas id="c4-fleet" style="max-height:340px"></canvas>
       </div>
@@ -450,6 +466,7 @@ td.teal { color: var(--teal-500); }
     </div>
   </div>
   <div class="card">
+    <span class="exhibit-num">Exhibit 9</span>
     <h3>Precision Ag Penetration: Massive Whitespace Remains</h3>
     <canvas id="c4-adoption" style="max-height:220px"></canvas>
   </div>
@@ -488,6 +505,7 @@ td.teal { color: var(--teal-500); }
   <div class="row">
     <div class="col" style="flex:2">
       <div class="card">
+        <span class="exhibit-num">Exhibit 10</span>
         <h3>Sum-of-the-Parts Waterfall ($/Share)</h3>
         <canvas id="c5-sotp" style="max-height:360px"></canvas>
       </div>
@@ -525,6 +543,7 @@ td.teal { color: var(--teal-500); }
     <div class="metric"><div class="label">Capex Cut</div><div class="value blue">-52%</div><div class="detail">$248M vs $518M peak</div></div>
   </div>
   <div class="card">
+    <span class="exhibit-num">Exhibit 11</span>
     <h3>FCF ($M) vs Revenue ($B) -- Record Cash on Declining Sales</h3>
     <canvas id="c6-fcfhist" style="max-height:340px"></canvas>
   </div>
@@ -561,6 +580,7 @@ td.teal { color: var(--teal-500); }
   <div class="row">
     <div class="col" style="flex:2">
       <div class="card">
+        <span class="exhibit-num">Exhibit 12</span>
         <h3>FCF vs Adjusted Net Income ($M)</h3>
         <canvas id="c7-conversion" style="max-height:340px"></canvas>
       </div>
@@ -602,6 +622,7 @@ td.teal { color: var(--teal-500); }
   <div class="row">
     <div class="col" style="flex:2">
       <div class="card">
+        <span class="exhibit-num">Exhibit 13</span>
         <h3>Revenue by Region ($B, Stacked) 2020-2025</h3>
         <canvas id="c8-region" style="max-height:320px"></canvas>
       </div>
@@ -645,6 +666,7 @@ td.teal { color: var(--teal-500); }
     </table>
   </div>
   <div class="card">
+    <span class="exhibit-num">Exhibit 14</span>
     <h3>EU Tractor Registrations (Units, 000s) -- 10-Year Low</h3>
     <canvas id="c9-eureg" style="max-height:260px"></canvas>
   </div>
@@ -668,6 +690,7 @@ td.teal { color: var(--teal-500); }
   <div class="row">
     <div class="col" style="flex:2">
       <div class="card">
+        <span class="exhibit-num">Exhibit 15</span>
         <h3>Share Count Trajectory (M) -- Accelerating Shrinkage</h3>
         <canvas id="c10-shares" style="max-height:320px"></canvas>
       </div>
@@ -736,6 +759,7 @@ td.teal { color: var(--teal-500); }
   <div class="row">
     <div class="col" style="flex:2">
       <div class="card">
+        <span class="exhibit-num">Exhibit 16</span>
         <h3>Recovery Returns from Prior Troughs (% gain, 24 months)</h3>
         <canvas id="c12-recovery" style="max-height:320px"></canvas>
       </div>
@@ -777,6 +801,7 @@ td.teal { color: var(--teal-500); }
   <div class="row">
     <div class="col">
       <div class="card">
+        <span class="exhibit-num">Exhibit 17</span>
         <h3>Revenue by Region ($B, FY2025)</h3>
         <canvas id="c13-pie" style="max-height:300px"></canvas>
       </div>
@@ -802,6 +827,7 @@ td.teal { color: var(--teal-500); }
   <div class="slide-title">Revenue + FCF History: <span>The Divergence IS the Thesis</span></div>
   <div class="slide-subtitle">Revenue fell 30% from peak, but FCF hit a record. This single chart captures the entire investment case.</div>
   <div class="card">
+    <span class="exhibit-num">Exhibit 18</span>
     <h3>Revenue ($B, Bars) + Free Cash Flow ($M, Line), 2016-2025</h3>
     <canvas id="c14-dual" style="max-height:380px"></canvas>
   </div>
@@ -857,6 +883,7 @@ td.teal { color: var(--teal-500); }
     <div class="metric"><div class="label">AI Projects</div><div class="value teal">50</div><div class="detail">Of 160 in pipeline</div></div>
   </div>
   <div class="card">
+    <span class="exhibit-num">Exhibit 19</span>
     <h3>Operating Margin Bridge: Current to Mid-Cycle Target</h3>
     <canvas id="c16-bridge" style="max-height:360px"></canvas>
   </div>
@@ -879,12 +906,14 @@ td.teal { color: var(--teal-500); }
   <div class="row">
     <div class="col">
       <div class="card">
+        <span class="exhibit-num">Exhibit 20</span>
         <h3>Oil Price vs Corn Price (2010-2025)</h3>
         <canvas id="c17-oilcorn"></canvas>
       </div>
     </div>
     <div class="col">
       <div class="card">
+        <span class="exhibit-num">Exhibit 21</span>
         <h3>Farm Income vs Deere & AGCO Revenue (2010-2025)</h3>
         <canvas id="c17-incomerev"></canvas>
       </div>
@@ -969,6 +998,7 @@ td.teal { color: var(--teal-500); }
   <div class="slide-title">FCF Yield vs <span>Every Industrial Peer</span></div>
   <div class="slide-subtitle">AGCO at 9.7% FCF yield (2025 actual) is the highest in the ag equipment universe and above most industrials.</div>
   <div class="card">
+    <span class="exhibit-num">Exhibit 22</span>
     <h3>FCF Yield Comparison (%)</h3>
     <canvas id="c20-yield" style="max-height:300px"></canvas>
   </div>
@@ -984,6 +1014,7 @@ td.teal { color: var(--teal-500); }
   </div>
   <div class="callout">Even on a normalized trough FCF of ~$400M, AGCO yields 5.3% -- for a business gaining market share globally, buying back 13% of float, and owning 85% of a 30% EBITDA margin precision ag platform.</div>
   <div class="card">
+    <span class="exhibit-num">Exhibit 23</span>
     <h3>EV/EBITDA: AGCO vs Industrial Peers</h3>
     <canvas id="c20-eveb" style="max-height:260px"></canvas>
   </div>
@@ -1017,6 +1048,7 @@ td.teal { color: var(--teal-500); }
     </table>
   </div>
   <div class="card">
+    <span class="exhibit-num">Exhibit 24</span>
     <h3>Scenario Returns vs Probability</h3>
     <canvas id="c21-scenario" style="max-height:280px"></canvas>
   </div>
@@ -1029,6 +1061,7 @@ td.teal { color: var(--teal-500); }
   <div class="slide-title">Total Shareholder Return Bridge: <span>15-20% Annualized</span></div>
   <div class="slide-subtitle">Earnings growth + PTx growth + buyback + dividend = 15-20% annualized TSR over 5 years without any multiple expansion.</div>
   <div class="card">
+    <span class="exhibit-num">Exhibit 25</span>
     <h3>5-Year TSR Component Bridge (Annualized %)</h3>
     <canvas id="c22-tsr" style="max-height:360px"></canvas>
   </div>
@@ -1051,6 +1084,7 @@ td.teal { color: var(--teal-500); }
   <div class="slide-title">Dividend Regime Shift: <span>From Variable Dividends to Buybacks</span></div>
   <div class="slide-subtitle">Variable dividends are tax-inefficient and don't compound. Buybacks at trough prices permanently reduce the share count.</div>
   <div class="card">
+    <span class="exhibit-num">Exhibit 26</span>
     <h3>Dividend History: Regular + Special ($/Share)</h3>
     <canvas id="c23-div" style="max-height:300px"></canvas>
   </div>
@@ -1200,7 +1234,7 @@ td.teal { color: var(--teal-500); }
   <div class="slide-subtitle">EU farmers earn roughly 50% of what an average EU worker earns. Even the 2022 commodity windfall only closed the gap to 63%. By 2024 it was back to 53%. 62% of farm entrepreneurial income comes from CAP subsidies.</div>
 
   <div class="metrics">
-    <div class="metric"><div class="label">Farm Income/AWU</div><div class="value red">€21,018</div><div class="detail">2024, real 2015 EUR</div></div>
+    <div class="metric"><div class="label">Farm NVA/Worker</div><div class="value red">€21,018</div><div class="detail">2024, real 2015 EUR — must cover labor + land + capital</div></div>
     <div class="metric"><div class="label">Avg EU Salary</div><div class="value">€39,808</div><div class="detail">2024, nominal</div></div>
     <div class="metric"><div class="label">Farm / Avg Wage</div><div class="value amber">~53%</div><div class="detail">2024</div></div>
     <div class="metric"><div class="label">CAP Dependency</div><div class="value red">62%</div><div class="detail">Avg share of income from subsidies</div></div>
@@ -1209,12 +1243,14 @@ td.teal { color: var(--teal-500); }
   <div class="row">
     <div class="col" style="flex:1.4">
       <div class="card">
-        <h3>Farm Income per Worker vs Average EU Salary (€/year, 2005-2024)</h3>
+        <span class="exhibit-num">Exhibit 27</span>
+        <h3>Farm Net Value Added per Worker vs Average EU Salary (€/year, 2005-2024)</h3>
         <canvas id="c27-gap" style="max-height:360px"></canvas>
       </div>
     </div>
     <div class="col">
       <div class="card">
+        <span class="exhibit-num">Exhibit 28</span>
         <h3>Farm Income as % of Average EU Wage</h3>
         <canvas id="c27-pct" style="max-height:360px"></canvas>
       </div>
@@ -1233,7 +1269,7 @@ td.teal { color: var(--teal-500); }
     </table>
   </div>
 
-  <div class="callout">European farming is structurally unprofitable without subsidies. The average farm worker earns half what an average EU citizen earns, and the gap is widening as input costs rise. The only path to viability is productivity -- and productivity in farming means precision ag, larger scale, and eventually autonomy. AGCO's Fendt + PTx platform sits at the center of all three trends.</div>
+  <div class="callout">The €21K per worker is not a wage -- it is total farm net value added per full-time equivalent, which must cover the farmer's own compensation AND returns to land AND returns to capital. The actual farmer take-home is far lower. European farming is structurally unprofitable without subsidies. The only path to viability is productivity -- and productivity in farming means precision ag, larger scale, and eventually autonomy. AGCO's Fendt + PTx platform sits at the center of all three trends.</div>
   <div class="source">Source: Eurostat aact_eaa06, nama_10_fte, apri_pi15_ina; European Commission FADN; CAP Reform | JAOD Analysis</div>
 </div>
 
@@ -1953,7 +1989,7 @@ function initSlide27() {
       labels: years,
       datasets: [
         { label: 'Avg EU Salary (€/yr)', data: avgWage, borderColor: AMBER, backgroundColor: AMBER+'15', pointRadius: 3, fill: false, borderWidth: 2.5 },
-        { label: 'Farm Income/AWU (€/yr, real 2015)', data: farmIncome, borderColor: RED, backgroundColor: RED+'15', pointRadius: 3, fill: '-1', borderWidth: 2.5 }
+        { label: 'Farm NVA/Worker (€/yr, real 2015) — covers labor + land + capital', data: farmIncome, borderColor: RED, backgroundColor: RED+'15', pointRadius: 3, fill: '-1', borderWidth: 2.5 }
       ]
     },
     options: {
